@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../Core/widgets/customtext_field.dart';
 import '../../Core/widgets/loading_overlay.dart';
+import '../../Login/View/login_view.dart';
 import '../ViewModel/signup_viewmodel.dart';
 
 
@@ -79,6 +80,23 @@ class _SignupViewState extends State<SignupView> {
                       ? 'Please enter building number'
                       : null,
                 ),
+
+                CustomTextField(
+                  controller: viewModel.street1Controller,
+                  labelText: 'Street Name 1 *',
+                  validator: (value) =>
+                  value == null || value.isEmpty ? 'Required' : null,
+                ),
+                CustomTextField(
+                  controller: viewModel.street2Controller,
+                  labelText: 'Street Name 2',
+                ),
+                CustomTextField(
+                  controller: viewModel.districtController,
+                  labelText: 'District *',
+                  validator: (value) =>
+                  value == null || value.isEmpty ? 'Required' : null,
+                ),
                 CustomTextField(
                   controller: viewModel.pincodeController,
                   labelText: 'Pincode *',
@@ -98,22 +116,6 @@ class _SignupViewState extends State<SignupView> {
                     return null;
                   },
                 ),
-                CustomTextField(
-                  controller: viewModel.street1Controller,
-                  labelText: 'Street Name 1 *',
-                  validator: (value) =>
-                  value == null || value.isEmpty ? 'Required' : null,
-                ),
-                CustomTextField(
-                  controller: viewModel.street2Controller,
-                  labelText: 'Street Name 2',
-                ),
-                CustomTextField(
-                  controller: viewModel.districtController,
-                  labelText: 'District *',
-                  validator: (value) =>
-                  value == null || value.isEmpty ? 'Required' : null,
-                ),
                 const SizedBox(height: 12),
                 if (viewModel.errorMessage != null)
                   Padding(
@@ -131,6 +133,11 @@ class _SignupViewState extends State<SignupView> {
 
          ScaffoldMessenger.of(context).showSnackBar(
            const SnackBar(content: Text('Signup Successful! Data saved locally.')),
+         );
+
+         Navigator.push(
+           context,
+           MaterialPageRoute(builder: (context) => const LoginScreen()),
          );
          viewModel.clearForm();
                   }},
